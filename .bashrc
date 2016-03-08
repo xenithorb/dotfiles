@@ -13,4 +13,8 @@ done
 #shopt -s dotglob extglob lithist
 export EDITOR="$(type -P vim)"
 export VISUAL="$EDITOR" 
-export PATH="${PATH}:/opt/firefox-dev" 
+
+FIREFOX_DEV_PATH="/opt/firefox-dev"
+if [[ -d "$FIREFOX_DEV_PATH" ]]; then 
+	export PATH="${PATH}:/opt/firefox-dev"
+fi 
