@@ -4,3 +4,9 @@
 	default = simple
 [gui]
 	recentrepo = /home/xenith/git/opsech.io
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = true
