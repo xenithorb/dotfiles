@@ -1,0 +1,17 @@
+#!/bin/bash
+# This executes either from bashrc OR sshrc 
+# on both local and remote environments
+
+# Let's support powerlife if we have it
+if type -P powerline-daemon; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  . /usr/share/powerline/bash/powerline.sh
+fi
+
+EDITOR="$(type -P vim)"
+if [[ "$EDITOR" ]]; then 
+	export EDITOR
+	export VISUAL=$EDITOR
+fi

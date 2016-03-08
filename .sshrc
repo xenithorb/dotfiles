@@ -1,16 +1,18 @@
 #!/bin/bash
 
-EDITOR="$(type -P vim)"
-if [[ "$EDITOR" ]]; then 
-	export EDITOR
-	export VISUAL=$EDITOR
-fi
+export SSHRC_D="${SSHHOME}/.sshrc.d"
+SOURCE_FILES=(
+	"${SSHRC_D}/.aliases"
+	"${SSHRC_D}/.common"
+)
 
-export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
+for i in "${SOURCE_FILES[@]}"; do 
+	if [[ -f "$i" ]]; then
+		. "$i"
+	fi
+done
 
-ALIASES="${SSHHOME}/.sshrc.d/.aliases" 
-if [[ -f "$ALIASES" ]]; then
-	. "$ALIASES"
-fi
+export VIMINIT="let \$MYVIMRC='${SSHRC_D}/.vimrc' | source \$MYVIMRC"
+
 
 
