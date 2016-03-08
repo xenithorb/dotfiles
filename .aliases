@@ -1,0 +1,43 @@
+#!/bin/bash
+
+#######################################################
+# Local AND Remote aliases
+#
+alias fuck='sudo $(fc -ln -1)' 
+alias ll='ls -l --color=auto'
+alias la='ls -la --color=auto'
+alias ls='ls --color=auto'
+alias ssh='sshrc' 
+
+# Please god help me remember dnf/yum
+if hash dnf >/dev/null 2>&1; then
+	alias dnf-repowhere='dnf repoquery --qf="%{name}-%{version}-%{release}.%{arch}\t%{reponame}"'
+	alias yum='dnf'
+elif hash yum >/dev/null 2>&1; then
+	alias yum-repowhere='repoquery --qf="%{name}-%{version}-%{release}.%{arch}\t%{repoid}"'
+	alias dnf='yum'
+elif hash apt-get >/dev/null 2>&1; then
+	echo "Debian, really? Idiot!"
+fi
+
+# Ok got me, not an alias but acts like one
+if hash curl >/dev/null 2>&1; then 
+	haste () 
+	{ 
+	    local S="http" 
+	    local H="hastebin.com" 
+	    local P=""
+	    local SHP="${S}://${H}${P}/"
+	    curl -X POST -s --data-binary @- "${SHP}documents" \
+		| awk -F '"' '{print a$4}' a="${SHP}"
+	}
+fi 
+
+########################################################
+# These are the aliases that ONLY apply to AFTER `sshrc` 
+# Everything else applies everywhere locally and remotely
+#
+if [[ "$SSHHOME" ]]; then 
+	alias tmux='tmux -f $SSHHOME/.sshrc.d/tmux.conf' 
+fi
+

@@ -1,0 +1,6 @@
+[user]
+	email = xenithorb@users.noreply.github.com
+[push]
+	default = simple
+[gui]
+	recentrepo = /home/xenith/git/opsech.io

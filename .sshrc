@@ -1,0 +1,16 @@
+#!/bin/bash
+
+EDITOR="$(type -P vim)"
+if [[ "$EDITOR" ]]; then 
+	export EDITOR
+	export VISUAL=$EDITOR
+fi
+
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
+
+ALIASES="${SSHHOME}/.sshrc.d/.aliases" 
+if [[ -f "$ALIASES" ]]; then
+	. "$ALIASES"
+fi
+
+
