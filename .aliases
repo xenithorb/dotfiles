@@ -8,6 +8,7 @@ alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
 alias ssh='sshrc' 
+eval alias tmux=\'"tmux -f ${__TMUXRC}"\'
 
 # Please god help me remember dnf/yum
 if hash dnf >/dev/null 2>&1; then
@@ -32,12 +33,3 @@ if hash curl >/dev/null 2>&1; then
 		| awk -F '"' '{print a$4}' a="${SHP}"
 	}
 fi 
-
-########################################################
-# These are the aliases that ONLY apply to AFTER `sshrc` 
-# Everything else applies everywhere locally and remotely
-#
-if [[ "$SSHHOME" ]]; then 
-	alias tmux='tmux -f $SSHHOME/.sshrc.d/tmux.conf' 
-fi
-

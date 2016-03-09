@@ -3,15 +3,44 @@
 # on both local and remote environments
 
 # Let's support powerlife if we have it
-if type -P powerline-daemon; then
-  powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-  . /usr/share/powerline/bash/powerline.sh
+powerline_init() {
+	powerline-daemon -q
+	POWERLINE_BASH_CONTINUATION=1
+	POWERLINE_BASH_SELECT=1
+	. /usr/share/powerline/bash/powerline.sh
+}
+
+is_powerline_session() {
+	type -P powerline-daemon >/dev/null 2>&1
+}
+
+is_sshrc_session() {
+	[[ "$SSHHOME" ]]
+}
+
+set_editor() {
+	EDITOR="$(type -P $1)"
+	if [[ "$EDITOR" ]]; then 
+		export EDITOR
+		export VISUAL=$EDITOR
+	fi
+}
+
+if is_powerline_session; then 
+	__TMUXRC=".tmux.conf" 
+	__VIMRC=".vimrc"
+	powerline_init 
+else
+	__TMUXRC=".tmux-nopl.conf"
+	__VIMRC=".vimrc-nopl"
 fi
 
-EDITOR="$(type -P vim)"
-if [[ "$EDITOR" ]]; then 
-	export EDITOR
-	export VISUAL=$EDITOR
-fi
+if is_sshrc_session; then
+	export VIMINIT="let \$MYVIMRC='${SSHRC_D}/${__VIMRC}' | source \$MYVIMRC"
+	__TMUXRC="${SSHRC_D}/${__TMUXRC}" 
+else
+	export VIMINIT="let \$MYVIMRC='~/${__VIMRC}' | source \$MYVIMRC"
+	__TMUXRC="~/${__TMUXRC}" 
+fi 
+
+set_editor vim 

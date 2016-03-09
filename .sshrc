@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export SSHRC_D="${SSHHOME}/.sshrc.d"
+SSHRC_D="${SSHHOME}/.sshrc.d"
 SOURCE_FILES=(
+	"${SSHRC_D}/.common" #Common should be first here
 	"${SSHRC_D}/.aliases"
-	"${SSHRC_D}/.common"
 )
 
 for i in "${SOURCE_FILES[@]}"; do 
@@ -11,8 +11,4 @@ for i in "${SOURCE_FILES[@]}"; do
 		. "$i"
 	fi
 done
-
-export VIMINIT="let \$MYVIMRC='${SSHRC_D}/.vimrc' | source \$MYVIMRC"
-
-
 
