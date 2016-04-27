@@ -8,6 +8,7 @@ alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
 alias ssh='sshrc' 
+alias mock='mock --dnf'
 eval alias tmux=\'"tmux -f ${__TMUXRC}"\'
 
 # Please god help me remember dnf/yum
