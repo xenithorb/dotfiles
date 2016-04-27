@@ -3,7 +3,7 @@
 #######################################################
 # Local AND Remote aliases
 #
-alias fuck='sudo $(fc -ln -1)' 
+alias fuck='echo $(fc -ln -1) && sudo $(fc -ln -1)' 
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
