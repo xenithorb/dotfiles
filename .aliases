@@ -10,6 +10,7 @@ alias ls='ls --color=auto'
 alias ssh='sshrc' 
 alias mock='mock --dnf'
 eval alias tmux=\'"tmux -f ${__TMUXRC}"\'
+alias git-walk='find . -name ".git" -type d -exec sh -c '\''( repo="$(dirname {})" && cd "$repo" && echo "$repo - $(git branch --color -vv)" && git status -s -uno)'\'' \;'
 
 # Please god help me remember dnf/yum
 if hash dnf >/dev/null 2>&1; then
@@ -33,4 +34,4 @@ if hash curl >/dev/null 2>&1; then
 	    curl -X POST -s --data-binary @- "${SHP}documents" \
 		| awk -F '"' '{print a$4}' a="${SHP}"
 	}
-fi 
+fi
