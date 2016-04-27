@@ -23,7 +23,7 @@ elif hash apt-get >/dev/null 2>&1; then
 	echo "Debian, really? Idiot!"
 fi
 
-# Ok got me, not an alias but acts like one
+# Ok got me, not aliases but they act like ones
 if hash curl >/dev/null 2>&1; then 
 	haste () 
 	{ 

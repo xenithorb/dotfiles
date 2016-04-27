@@ -1,3 +1,4 @@
+#!/bin/bash
 # .bashrc
 
 SOURCE_FILES=(
@@ -8,7 +9,7 @@ SOURCE_FILES=(
 
 for i in "${SOURCE_FILES[@]}"; do 
 	if [[ -e "$i" ]]; then
-		. "$i"
+		source "$i"
 	fi
 done
  
