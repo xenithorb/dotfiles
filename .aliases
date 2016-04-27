@@ -3,14 +3,14 @@
 #######################################################
 # Local AND Remote aliases
 #
-alias fuck='echo $(fc -ln -1) && sudo $(fc -ln -1)' 
+alias fuck='echo $(fc -ln -1) && sudo $(fc -ln -1)'
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
-alias ssh='sshrc' 
+alias ssh='sshrc'
 alias mock='mock --dnf'
-eval alias tmux=\'"tmux -f ${__TMUXRC}"\'
 alias git-walk='find . -name ".git" -type d -exec sh -c '\''( repo="$(dirname {})" && cd "$repo" && echo "$repo - $(git branch --color -vv)" && git status -s -uno)'\'' \;'
+eval alias tmux="'tmux -f ${__TMUXRC}'"
 
 # Please god help me remember dnf/yum
 if hash dnf >/dev/null 2>&1; then
@@ -24,11 +24,11 @@ elif hash apt-get >/dev/null 2>&1; then
 fi
 
 # Ok got me, not aliases but they act like ones
-if hash curl >/dev/null 2>&1; then 
-	haste () 
-	{ 
-	    local S="http" 
-	    local H="hastebin.com" 
+if hash curl >/dev/null 2>&1; then
+	haste ()
+	{
+	    local S="http"
+	    local H="hastebin.com"
 	    local P=""
 	    local SHP="${S}://${H}${P}/"
 	    curl -X POST -s --data-binary @- "${SHP}documents" \
