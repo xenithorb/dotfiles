@@ -12,3 +12,5 @@
 	prompt = true
 [apply]
 	whitespace = fix
+[alias]
+	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
