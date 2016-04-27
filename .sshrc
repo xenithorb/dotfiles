@@ -1,14 +1,21 @@
 #!/bin/bash
 
-SSHRC_D="${SSHHOME}/.sshrc.d"
-SOURCE_FILES=(
-	"${SSHRC_D}/.common" #Common should be first here
-	"${SSHRC_D}/.aliases"
+NO_RUN_HOSTS=(
+	"HELIOS"
+	"192.168.1.1"
 )
 
-for i in "${SOURCE_FILES[@]}"; do 
-	if [[ -f "$i" ]]; then
-		. "$i"
-	fi
-done
+if [[ $(hostname) != "HELIOS" ]]; then
 
+	SSHRC_D="${SSHHOME}/.sshrc.d"
+	SOURCE_FILES=(
+		"${SSHRC_D}/.common" #Common should be first here
+		"${SSHRC_D}/.aliases"
+	)
+
+	for i in "${SOURCE_FILES[@]}"; do
+		if [[ -f "$i" ]]; then
+			. "$i"
+		fi
+	done
+fi
