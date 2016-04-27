@@ -22,7 +22,10 @@ set_editor() {
 	EDITOR="$(type -P $1)"
 	if [[ "$EDITOR" ]]; then 
 		export EDITOR
-		export VISUAL=$EDITOR
+		export VISUAL="$EDITOR"
+	fi
+	if [[ "$EDITOR" =~ vim$ ]]; then
+		export MERGE="vimdiff"
 	fi
 }
 
