@@ -1,11 +1,7 @@
 #!/bin/bash
 # .bashrc
 
-SOURCE_FILES=(
-	"/etc/bashrc" # if a file starts with / don't prepend $HOME
-	".common" # Common needs to be before aliases
-	".aliases"
-)
+source ~/.source_files
 
 for i in "${!SOURCE_FILES[@]}"; do
 	f="${SOURCE_FILES[i]}"

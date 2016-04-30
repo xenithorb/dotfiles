@@ -1,0 +1,6 @@
+#!/bin/bash
+SOURCE_FILES=(
+	"/etc/bashrc"	
+	".common"
+	".aliases" # .aliases depends on .common (being first)
+)
