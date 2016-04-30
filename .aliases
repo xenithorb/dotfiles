@@ -10,7 +10,7 @@ alias ls='ls --color=auto'
 alias ssh='sshrc'
 alias mock='mock --dnf'
 alias git-walk='find . -name ".git" -type d -exec sh -c '\''( repo="$(dirname {})" && cd "$repo" && echo "$repo - $(git branch --color -vv)" && git status -s -uno)'\'' \;'
-eval alias tmux="'tmux -f ${__TMUXRC}'"
+eval alias tmux="'tmux -f ${__TMUXRC}'" # __TMUXRC is in .common
 
 # Please god help me remember dnf/yum
 if hash dnf >/dev/null 2>&1; then
@@ -24,6 +24,7 @@ elif hash apt-get >/dev/null 2>&1; then
 fi
 
 # Ok got me, not aliases but they act like ones
+# Neat little script to upload files to hastebin.com
 if hash curl >/dev/null 2>&1; then
 	haste ()
 	{

@@ -1,4 +1,4 @@
-""" BEGIN: Custom general 
+""" BEGIN: Custom general
 set t_Co=256
 colorscheme hybrid
 filetype plugin indent on
