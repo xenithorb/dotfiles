@@ -36,3 +36,27 @@ if hash curl >/dev/null 2>&1; then
 		| awk -F '"' '{print a$4}' a="${SHP}"
 	}
 fi
+
+# Print what group a package is in
+if hash dnf >/dev/null 2>&1; then
+	dnf-groupfind() {
+		set -x
+		sudo dnf group info '*' \
+			| awk -v package=" $1$" '
+				BEGIN {
+					FS=": "
+					group_reg="^Group: "
+					opt_reg="^ Optional Packages:"
+				}
+				$0 ~ group_reg { group=$2 }
+				$0 ~ opt_reg { opt=group }
+				$0 ~ package {
+					if ( opt == group )
+						print $1,"-",group,"- Optional"
+					else
+						print $1,"-",group
+				}
+				'
+		set +x
+	}
+fi
