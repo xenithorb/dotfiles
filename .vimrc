@@ -28,6 +28,11 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 """ END: Highlight trailing whitespace
 
+""" BEGIN: OmniComplete
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+""" END: OmniComplete
+
 """ BEGIN: Syntactics shellcheck/pylint
 execute pathogen#infect()
 
