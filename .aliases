@@ -41,7 +41,6 @@ fi
 # Print what group a package is in
 if hash dnf >/dev/null 2>&1; then
 	dnf-groupfind() {
-		set -x
 		sudo dnf group info '*' \
 			| awk -v package=" $1$" '
 				BEGIN {
@@ -58,6 +57,5 @@ if hash dnf >/dev/null 2>&1; then
 						print $1,"-",group
 				}
 				'
-		set +x
 	}
 fi
