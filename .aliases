@@ -42,7 +42,10 @@ fi
 if hash dnf >/dev/null 2>&1; then
 	dnf-groupfind() {
 		sudo dnf group info '*' \
-			| awk -v package=" $1$" '
+			| awk 	-v package="$1" \
+				-v red="$(tput setaf 196)" \
+				-v rst="$(tput sgr0)" \
+				'
 				BEGIN {
 					FS=": "
 					group_reg="^Group: "
@@ -50,11 +53,18 @@ if hash dnf >/dev/null 2>&1; then
 				}
 				$0 ~ group_reg { group=$2 }
 				$0 ~ opt_reg { opt=group }
-				$0 ~ package {
-					if ( opt == group )
-						print $1,"-",group,"- Optional"
-					else
-						print $1,"-",group
+				$0 ~ "^[ ]*"package {
+					name=$1
+					found=1 
+					gsub(" ","",name)
+					if ( opt == group ) {
+						print name,"-",group,red"- Optional"rst" ( add \"with-optional\" to dnf group install command )"
+					} else {
+						print name,"-",group
+					}
+				}
+				END {
+					if ( ! found ) { print red"Not found."rst } 
 				}
 				'
 	}
