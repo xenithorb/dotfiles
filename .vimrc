@@ -7,6 +7,10 @@ set background=dark
 "hi Normal ctermbg=black
 set ml
 set number
+"" alias Rw in order to write as root if I have sudo
+"" but forgot to start as sudo. Rwq to also quit.
+command Rw exec "w !sudo tee %"
+command Rwq exec "Rw" | q!
 """ END: Custom general
 
 """ BEGIN: Powerline
