@@ -14,10 +14,16 @@ command Rwq exec "Rw" | q!
 """ END: Custom general
 
 """ BEGIN: Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-set laststatus=2
+"" First we will check to see if `powerline-daemon` is available
+"" This is a good indicator of whether powerline is installed
+"" this way we don't need to maintain two files.
+if system('command -v powerline-daemon') != ''
+	python from powerline.vim import setup as powerline_setup
+	python powerline_setup()
+	python del powerline_setup
+	set laststatus=2
+	set noshowmode
+endif
 """ END: Powerline
 
 """ Remove trailing whitespaces:
