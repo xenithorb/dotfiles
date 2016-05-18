@@ -1,6 +1,7 @@
 #!/bin/bash
 # .bashrc
 
+FIREFOX_DEV_PATH="/opt/firefox-dev"
 source ~/.source_files
 
 # if a file starts with / don't prepend $HOME
@@ -14,8 +15,5 @@ for i in "${!SOURCE_FILES[@]}"; do
 	fi
 done
 
-FIREFOX_DEV_PATH="/opt/firefox-dev"
-if [[ -d "$FIREFOX_DEV_PATH" ]]; then
-	export PATH="${PATH}:/opt/firefox-dev"
-fi
 # .common configurable functions
+set_editor vim

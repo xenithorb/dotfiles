@@ -13,6 +13,26 @@ command Rw exec "w !sudo tee %"
 command Rwq exec "Rw" | q!
 """ END: Custom general
 
+""" BEGIN: Auto relativenumber
+if has('autocmd')
+augroup vimrc_linenumbering
+    autocmd!
+    autocmd WinLeave *
+                \ if &number |
+                \   set norelativenumber |
+                \ endif
+    autocmd BufWinEnter *
+                \ if &number |
+                \   set relativenumber |
+                \ endif
+    autocmd VimEnter *
+                \ if &number |
+                \   set relativenumber |
+                \ endif
+augroup END
+endif
+""" END: Auto relativenumber
+
 """ BEGIN: Powerline
 "" First we will check to see if `powerline-daemon` is available
 "" This is a good indicator of whether powerline is installed
