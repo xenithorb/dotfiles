@@ -55,7 +55,7 @@ if hash dnf >/dev/null 2>&1; then
 				$0 ~ opt_reg { opt=group }
 				$0 ~ "^[ ]*"package {
 					name=$1
-					found=1 
+					found=1
 					gsub(" ","",name)
 					if ( opt == group ) {
 						print name,"-",group,red"- Optional"rst" ( add \"with-optional\" to dnf group install command )"
@@ -64,7 +64,7 @@ if hash dnf >/dev/null 2>&1; then
 					}
 				}
 				END {
-					if ( ! found ) { print red"Not found."rst } 
+					if ( ! found ) { print red"Not found."rst }
 				}
 				'
 	}

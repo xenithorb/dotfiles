@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export SSHRC_D="${SSHHOME}/.sshrc.d"
+SSHRC_D="${SSHHOME}/.sshrc.d"
+#export SSHRC_D
+echo $SSHHOME
 source "${SSHRC_D}/.source_files"
 
 NO_RUN_HOSTS=(

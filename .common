@@ -1,5 +1,5 @@
 #!/bin/bash
-# This executes either from bashrc OR sshrc 
+# This executes either from bashrc OR sshrc
 # on both local and remote environments
 
 # Let's support powerlife if we have it
