@@ -55,7 +55,7 @@ if hash dnf >/dev/null 2>&1; then
 		local repo="$1"
 		if [[ "$(get_num_pkgs "$repo")" -gt 0 ]]; then
 			sudo dnf repo-pkgs "$repo" remove
-			if [[ "$(get_num_pkgs "$repo")" -gt 0 ]]; then
+			if [[ "$(get_num_pkgs "$repo")" -eq 0 ]]; then
 				delete_repo "$repo"
 			fi
 		else
