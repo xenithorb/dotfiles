@@ -39,8 +39,31 @@ if hash curl >/dev/null 2>&1; then
 	}
 fi
 
-# Print what group a package is in
+
 if hash dnf >/dev/null 2>&1; then
+# Remove repo and packages together
+	dnf-nukerepo() {
+		get_num_pkgs() {
+			sudo dnf repo-pkgs "$1" list installed \
+				| awk 'NR<3 && /^(Last metadata|Installed)/{--NR}; END { print NR }'
+		}
+		delete_repo() {
+			printf "%s %s\n" "Deleting repo:" "$1"
+			sudo dnf repolist -v --repoid "$1" \
+				| awk '/Repo-filename/{ print $2 }' | xargs -r sudo rm
+		}
+		local repo="$1"
+		if [[ "$(get_num_pkgs "$repo")" -gt 0 ]]; then
+			sudo dnf repo-pkgs "$repo" remove
+			if [[ "$(get_num_pkgs "$repo")" -gt 0 ]]; then
+				delete_repo "$repo"
+			fi
+		else
+			delete_repo "$repo"
+		fi
+
+	}
+# Print what group a package is in
 	dnf-groupfind() {
 		sudo dnf group info '*' \
 			| awk 	-v package="$1" \
