@@ -14,6 +14,9 @@ OVERWRITE=1
 if [[ "$OVERWRITE" == 1 ]]; then
 	rm_Owrite="-f"
 	ln_Owrite="-f"
+else
+	rm_Owrite="-i"
+	ln_Owrite="-i"
 fi
 
 RDIR="$(dirname "$0")"
@@ -33,7 +36,7 @@ print_half_width_line() {
 
 
 print_half_width_line "Directories:"
-find "$RDIR" -mindepth 1 -maxdepth 1 -type d ! -name ".git" -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
+find "$RDIR" -mindepth 1 -maxdepth 1 \( -type d -o -type f \) ! -name ".git" -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
 print_half_width_line "Files:"
 find "$RDIR" -mindepth 1 -maxdepth 1 ! -name ".git" -name ".*" -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/" \;
 print_half_width_line "END"
