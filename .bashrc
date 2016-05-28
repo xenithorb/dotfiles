@@ -1,6 +1,5 @@
 #!/bin/bash
 # .bashrc
-
 FIREFOX_DEV_PATH="/opt/firefox-dev"
 source ~/.source_files
 
