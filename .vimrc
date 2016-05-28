@@ -2,6 +2,8 @@
 set t_Co=256
 colorscheme hybrid
 filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
 set background=dark
 "" Get transparent BG back
 "hi Normal ctermbg=black
