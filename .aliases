@@ -16,19 +16,19 @@ alias git-walk='find . -name ".git" -type d -exec sh -c '\''( repo="$(dirname {}
 eval alias tmux="'tmux -f ${__TMUXRC}'" # __TMUXRC is in .common
 
 # Please god help me remember dnf/yum
-if hash dnf >/dev/null 2>&1; then
+if hash dnf &>/dev/null; then
 	alias dnf-repowhere='dnf repoquery --qf="%{name}-%{version}-%{release}.%{arch}\t%{reponame}"'
 	alias yum='dnf'
-elif hash yum >/dev/null 2>&1; then
+elif hash yum &>/dev/null; then
 	alias yum-repowhere='repoquery --qf="%{name}-%{version}-%{release}.%{arch}\t%{repoid}"'
 	alias dnf='yum'
-elif hash apt-get >/dev/null 2>&1; then
+elif hash apt-get &>/dev/null; then
 	echo "Debian, really? Idiot!"
 fi
 
 # Ok got me, not aliases but they act like ones
 # Neat little script to upload files to hastebin.com
-if hash curl >/dev/null 2>&1; then
+if hash curl &>/dev/null; then
 	haste ()
 	{
 	    local S="http"
@@ -41,7 +41,7 @@ if hash curl >/dev/null 2>&1; then
 fi
 
 
-if hash dnf >/dev/null 2>&1; then
+if hash dnf &>/dev/null; then
 # Remove repo and packages together
 	dnf-nukerepo() {
 		get_num_pkgs() {
