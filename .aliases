@@ -3,6 +3,7 @@
 #######################################################
 # Local AND Remote aliases
 #
+hash vimx &>/dev/null && alias vim='vimx'
 alias fuck='cmd="$(fc -ln -1)" && echo "$cmd" && sudo $cmd'
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
