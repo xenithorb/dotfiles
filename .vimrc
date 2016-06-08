@@ -76,6 +76,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+if system('command -v closure-compiler') != ''
+	let g:syntastic_javascript_closurecompiler_script = '/usr/bin/closure-compiler'
+	let g:syntastic_javascript_closurecompiler_args = '--language_in=ES5'
+	let g:syntastic_javascript_checkers = ['closurecompiler']
+endif
 "let g:syntastic_python_python_exec = '/usr/bin/python3'
 "let g:syntastic_python_checkers = ['python']
 """ END: Syntactics
