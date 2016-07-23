@@ -1,12 +1,13 @@
-""" BEGIN: Custom general
+"" BEGIN: Custom general
 set t_Co=256
+set background=dark
 colorscheme hybrid
+"" Get transparent BG back
+hi Normal ctermbg=NONE
+set autoindent
 filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
-set background=dark
-"" Get transparent BG back
-"hi Normal ctermbg=black
 set ml
 set number
 "" alias Rw in order to write as root if I have sudo
@@ -40,9 +41,9 @@ endif
 "" This is a good indicator of whether powerline is installed
 "" this way we don't need to maintain two files.
 if system('command -v powerline-daemon') != ''
-	python from powerline.vim import setup as powerline_setup
-	python powerline_setup()
-	python del powerline_setup
+"	python from powerline.vim import setup as powerline_setup
+"	python powerline_setup()
+"	python del powerline_setup
 	set laststatus=2
 	set noshowmode
 endif
@@ -60,12 +61,7 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 """ END: Highlight trailing whitespace
 
-""" BEGIN: OmniComplete
-filetype plugin on
-set omnifunc=syntaxcomplete#Complete
-""" END: OmniComplete
-
-""" BEGIN: Syntactics shellcheck/pylint
+""" BEGIN: Syntastic shellcheck/pylint
 execute pathogen#infect()
 
 set statusline+=%#warningmsg#
@@ -81,6 +77,14 @@ if system('command -v closure-compiler') != ''
 	let g:syntastic_javascript_closurecompiler_args = '--language_in=ES5'
 	let g:syntastic_javascript_checkers = ['closurecompiler']
 endif
+if system('command -v ansible-lint') != ''
+	let g:syntastic_ansible_ansible_lint_exec = '/usr/bin/ansible-lint'
+	let g:syntastic_ansible_checkers = ['ansible_lint']
+endif
+if system('command -v yamllint') != ''
+	let g:syntastic_yaml_checkers = ['yamllint']
+endif
+
 "let g:syntastic_python_python_exec = '/usr/bin/python3'
 "let g:syntastic_python_checkers = ['python']
-""" END: Syntactics
+""" END: Syntastic
