@@ -9,10 +9,12 @@
 	recentrepo = /home/xenith/git/opsech.io
 	fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	historybrowser = gitk
+	editor = konsole --nofork -e 'vim' -fp
 [diff]
-	tool = vimdiff
+	tool = konsole --nofork -e 'vimdiff'
 [merge]
-	tool = vimdiff
+	tool = konsole --nofork -e 'vimdiff'
 [difftool]
 	prompt = true
 [apply]
@@ -21,3 +23,6 @@
 	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
 	gg = log --oneline --decorate --graph
 	gga = log --oneline --decorate --graph --all
+[cola]
+	tabwidth = 4
+	blameviewer = git gui blame
