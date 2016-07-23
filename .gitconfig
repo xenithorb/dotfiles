@@ -1,6 +1,8 @@
 [user]
-	email = xenithorb@users.noreply.github.com
+	#email = xenithorb@users.noreply.github.com
 	name = "Michael Goodwin"
+[init]
+	templatedir = ~/.git-templ
 [push]
 	default = simple
 [gui]
