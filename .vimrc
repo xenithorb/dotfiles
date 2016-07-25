@@ -1,4 +1,4 @@
-"" BEGIN: Custom general
+""" BEGIN: Custom general
 set t_Co=256
 set background=dark
 colorscheme hybrid
@@ -6,6 +6,8 @@ colorscheme hybrid
 hi Normal ctermbg=NONE
 set autoindent
 filetype plugin indent on
+"" https://github.com/pearofducks/ansible-vim/issues/24#issuecomment-235065486
+autocmd FileType ansible setlocal indentkeys-=<:>
 set tabstop=4
 set shiftwidth=4
 set ml
