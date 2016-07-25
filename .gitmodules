@@ -1,0 +1,9 @@
+[submodule "syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "ansible-vim"]
+	path = .vim/bundle/ansible-vim
+	url = https://github.com/pearofducks/ansible-vim.git
+[submodule "vim-hybrid"]
+	path = .vim/colors/vim-hybrid
+	url = https://github.com/w0ng/vim-hybrid.git
