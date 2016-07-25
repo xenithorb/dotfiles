@@ -1,1 +1,0 @@
-vim-hybrid/colors/hybrid.vim

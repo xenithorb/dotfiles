@@ -5,7 +5,7 @@
 	path = .vim/bundle/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim.git
 [submodule "vim-hybrid"]
-	path = .vim/colors/vim-hybrid
+	path = .vim/bundle/vim-hybrid
 	url = https://github.com/w0ng/vim-hybrid.git
 [submodule ".vim/bundle/vim-pathogen"]
 	path = .vim/bundle/vim-pathogen
