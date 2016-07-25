@@ -1,6 +1,7 @@
 [user]
 	#email = xenithorb@users.noreply.github.com
 	name = "Michael Goodwin"
+	useConfigOnly = true
 [init]
 	templatedir = ~/.git-templ
 [push]
