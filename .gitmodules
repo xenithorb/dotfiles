@@ -7,3 +7,6 @@
 [submodule "vim-hybrid"]
 	path = .vim/colors/vim-hybrid
 	url = https://github.com/w0ng/vim-hybrid.git
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git

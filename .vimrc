@@ -1,3 +1,8 @@
+""" BEGIN: Pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+""" END: Pathogen
+
 """ BEGIN: Custom general
 set t_Co=256
 set background=dark
@@ -64,8 +69,6 @@ autocmd BufWinLeave * call clearmatches()
 """ END: Highlight trailing whitespace
 
 """ BEGIN: Syntastic shellcheck/pylint
-execute pathogen#infect()
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
