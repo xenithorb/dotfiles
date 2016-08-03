@@ -40,6 +40,23 @@ if hash curl &>/dev/null; then
 	}
 fi
 
+replace_in_file_recursive() {
+	trap 'unset files' RETURN
+	local a="$1" b="$2" nl=$'\n'
+	readarray -t files < <(grep -Rli "$a")
+	(( "${#files[@]}" == 0 )) && { echo "No files match!"; return 1; }
+	cat <<-EOF
+		Files:
+			$(printf "\t%s\n" "${files[@]}")$nl
+			Replace all occurances of "$a" with "$b"?
+	EOF
+	select prompt in "Yes" "No"; do
+		case $prompt in
+			Yes) sed -i "s|${a}|${b}|g" "${files[@]}"; return ;;
+			No) return ;;
+		esac
+	done
+}
 
 if hash dnf &>/dev/null; then
 # Remove repo and packages together
