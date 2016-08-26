@@ -2,7 +2,7 @@
 #
 # A git hook to make sure user.email exists before committing
 
-EMAIL="$(git config --get user.email)"
+EMAIL="$(git config --local --get user.email)"
 
 if [[ -z "$EMAIL" ]]; then
     # user.email is empty
