@@ -13,6 +13,7 @@ set autoindent
 filetype plugin indent on
 "" https://github.com/pearofducks/ansible-vim/issues/24#issuecomment-235065486
 autocmd FileType ansible setlocal indentkeys-=<:>
+set wildmenu
 set tabstop=4
 set shiftwidth=4
 set ml
