@@ -1,0 +1,46 @@
+"*":
+  "ansible-galaxy": {}
+  core:
+    autoHideMenuBar: true
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "*.swp"
+    ]
+    openEmptyEditorOnStart: false
+    packagesWithKeymapsDisabled: [
+      "language-ansible"
+    ]
+    projectHome: "/home/xenith/git"
+  editor:
+    fontSize: 12
+    invisibles: {}
+    lineHeight: 1.3
+    showIndentGuide: true
+  "exception-reporting":
+    userId: "73c0624b-de12-72c6-b22c-b67b3bde9f98"
+  "git-diff": {}
+  "git-log": {}
+  "git-plus":
+    pullBeforePush: "pull --rebase"
+  linter: {}
+  "merge-conflicts": {}
+  "one-dark-ui":
+    fontSize: 12
+  "package-sync":
+    createOnChange: true
+    forceOverwrite: true
+  "save-session":
+    dataSaveFolder: "/home/xenith/.atom/packages/save-session/projects"
+  "tool-bar":
+    iconSize: "16px"
+  "tree-view":
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false

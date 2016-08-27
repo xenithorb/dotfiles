@@ -1,2 +1,4 @@
 .netrwhist
-*.swp 
+*.swp
+.atom/
+!.atom/*.cson
