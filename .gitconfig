@@ -20,6 +20,11 @@
 [apply]
 	whitespace = fix
 [alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	nb = "!__nb(){ git branch -D \"$1\" && git push -u origin :\"$1\"; }; __nb"
 	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
 	gg = log --oneline --decorate --graph
 	gga = log --oneline --decorate --graph --all
