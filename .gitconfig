@@ -7,10 +7,9 @@
 [push]
 	default = simple
 [gui]
-	recentrepo = /home/xenith/git/opsech.io
-	fontui = -family \"DejaVu Sans\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
-	fontdiff = -family \"DejaVu Sans Mono\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
-	historybrowser = gitk
+	fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
+	historybrowser = git-dag
 	editor = konsole --nofork -e 'vim' -fp
 [diff]
 	tool = konsole --nofork -e 'vimdiff'
@@ -26,4 +25,4 @@
 	gga = log --oneline --decorate --graph --all
 [cola]
 	tabwidth = 4
-	blameviewer = git gui blame
+	fontdiff = Monospace,9,-1,5,50,0,0,0,0,0
