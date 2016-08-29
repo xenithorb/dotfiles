@@ -2,6 +2,9 @@
   "ansible-galaxy": {}
   core:
     autoHideMenuBar: true
+    disabledPackages: [
+      "linter-ansible-syntax"
+    ]
     ignoredNames: [
       ".git"
       ".hg"
