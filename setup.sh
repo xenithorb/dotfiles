@@ -43,3 +43,6 @@ print_half_width_line "END"
 
 # Convert absolute links to relative links the right way
 symlinks -dc ~/
+
+git submodule init
+git submodule update --remote
