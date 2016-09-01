@@ -24,10 +24,11 @@
 	ci = commit
 	st = status
 	br = branch
-	nb = "!__nb(){ git branch -D \"$1\" && git push -u origin :\"$1\"; }; __nb"
-	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
 	gg = log --oneline --decorate --graph
 	gga = log --oneline --decorate --graph --all
+	nb = "!__nb(){ git branch -D \"$1\" && git push -u origin :\"$1\"; }; __nb"
+	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
+	re-email = "!set -x;_reEmail(){ git filter-branch --env-filter 'if [[ '\\$GIT_AUTHOR_EMAIL' == '"$1"' ]]; then export GIT_AUTHOR_EMAIL='"$2"' GIT_COMMITTER_EMAIL='"$2"' GIT_COMMITTER_DATE='\\$GIT_AUTHOR_DATE'; fi' HEAD; }; _reEmail"
 [cola]
 	tabwidth = 4
 	fontdiff = Monospace,9,-1,5,50,0,0,0,0,0
