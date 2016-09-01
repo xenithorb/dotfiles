@@ -48,7 +48,13 @@ replace_in_file_recursive() {
 	(( "${#files[@]}" == 0 )) && { echo "No files match!"; return 1; }
 	cat <<-EOF
 		Files:
-			$(printf "\t%s\n" "${files[@]}")$nl
+		$(
+			for ((i=0;i<${#files[@]};i++)); do
+				local grep_line="$(grep --color="always" -h "$a" "${files[i]}")"
+				lines+=( "${files[i]}%%%${grep_line}" )
+			done
+			printf "\n\t%s" "${lines[@]}" |column -t -s'%%%'
+		 )$nl
 			Replace all occurances of "$a" with "$b"?
 	EOF
 	select prompt in "Yes" "No"; do
