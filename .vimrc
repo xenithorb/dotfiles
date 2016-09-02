@@ -7,6 +7,7 @@ execute pathogen#infect()
 set t_Co=256
 set background=dark
 colorscheme hybrid
+set cc=81
 "" Get transparent BG back
 hi Normal ctermbg=NONE
 set autoindent
