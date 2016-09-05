@@ -2,9 +2,6 @@
   "ansible-galaxy": {}
   core:
     autoHideMenuBar: true
-    disabledPackages: [
-      "linter-ansible-syntax"
-    ]
     ignoredNames: [
       ".git"
       ".hg"
@@ -24,6 +21,7 @@
     invisibles: {}
     lineHeight: 1.3
     showIndentGuide: true
+    tabLength: 4
   "exception-reporting":
     userId: "73c0624b-de12-72c6-b22c-b67b3bde9f98"
   "git-diff": {}
@@ -31,6 +29,7 @@
   "git-plus":
     pullBeforePush: "pull --rebase"
   linter: {}
+  "linter-flake8": {}
   "merge-conflicts": {}
   "one-dark-ui":
     fontSize: 12
