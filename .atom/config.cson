@@ -31,6 +31,16 @@
   linter: {}
   "linter-flake8": {}
   "merge-conflicts": {}
+  minimap:
+    plugins:
+      cursorline: true
+      cursorlineDecorationsZIndex: 0
+      "find-and-replace": true
+      "find-and-replaceDecorationsZIndex": 0
+      "git-diff": true
+      "git-diffDecorationsZIndex": 0
+      linter: true
+      linterDecorationsZIndex: 0
   "one-dark-ui":
     fontSize: 12
   "package-sync":
