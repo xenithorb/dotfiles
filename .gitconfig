@@ -12,9 +12,9 @@
 	historybrowser = git-dag
 	editor = konsole --nofork -e 'vim' -fp
 [diff]
-	tool = konsole --nofork -e 'vimdiff'
+	tool = vimdiff
 [merge]
-	tool = konsole --nofork -e 'vimdiff'
+	tool = vimdiff
 [difftool]
 	prompt = true
 [apply]
