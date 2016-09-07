@@ -36,9 +36,22 @@ print_half_width_line() {
 
 
 print_half_width_line "Directories:"
-find "$RDIR" -mindepth 1 -maxdepth 1 \( -type d -o -type f \) ! -name ".git" -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
+
+while read -rd '' line; do
+	line="${line:?ERROR}"
+	echo rm "$rm_Owrite" -rv "$HOME/${line##\./}"
+done < <(
+	find "$RDIR" -mindepth 1 -maxdepth 1 \( -type d -o -type f \) ! -name ".git" -print0
+)
+
 print_half_width_line "Files:"
-find "$RDIR" -mindepth 1 -maxdepth 1 ! -name ".git" -a -name ".*" -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/" \;
+
+while read -rd '' line; do
+	echo ln -sv "$ln_Owrite" "${ADIR}/${line##\./}" "$HOME/"
+done < <(
+	find "$RDIR" -mindepth 1 -maxdepth 1 ! -name ".git" -print0
+)
+
 print_half_width_line "END"
 
 # Convert absolute links to relative links the right way
