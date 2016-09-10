@@ -12,7 +12,6 @@ alias ls='ls --color=auto'
 #alias ssh='sshrc'
 alias mock='mock --dnf'
 alias mkgrub='grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
-alias git-walk='find . -name ".git" -type d -exec sh -c '\''( repo="$(dirname {})" && cd "$repo" && echo "$repo - $(git branch --color -vv)" && git status -s -uno)'\'' \;'
 alias userinstalled='readarray -t nevra < <(sudo dnf history userinstalled); rpm -q --qf="%{name}\n" "${nevra[@]}"'
 eval alias tmux="'tmux -f ${__TMUXRC}'" # __TMUXRC is in .common
 
