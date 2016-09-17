@@ -38,9 +38,11 @@ print_half_width_line "BEGIN"
 
 print_half_width_line "Directories:"
 find "$RDIR" -mindepth 1 -maxdepth 1 -type d ! \( -name ".git" -o -path "*\.config" \) -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
+find "$RDIR/.config" -mindepth 1 -maxdepth 1 -type d ! -name ".git" -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/.config/"'$(basename {})' \;
 
 print_half_width_line "Files:"
 find "$RDIR" -mindepth 1 -maxdepth 1 ! \( -name ".git" -a -name ".*" -o -path "*\.config" -o -name "setup.sh" \) -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/" \;
+find "$RDIR/.config" -mindepth 1 -maxdepth 1 -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/.config/" \;
 
 # Convert absolute links to relative links the right way
 symlinks -dc ~/ &>/dev/null
