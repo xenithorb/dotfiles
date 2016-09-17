@@ -34,15 +34,20 @@ print_half_width_line() {
 	fi
 }
 
+print_half_width_line "BEGIN"
 
 print_half_width_line "Directories:"
-find "$RDIR" -mindepth 1 -maxdepth 1 \( -type d -o -type f \) ! -name ".git" -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
+find "$RDIR" -mindepth 1 -maxdepth 1 -type d ! \( -name ".git" -o -path "*\.config" \) -exec sh -c 'rm '"$rm_Owrite"' -rv '"$HOME/"'$(basename {})' \;
+
 print_half_width_line "Files:"
-find "$RDIR" -mindepth 1 -maxdepth 1 ! -name ".git" -a -name ".*" -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/" \;
-print_half_width_line "END"
+find "$RDIR" -mindepth 1 -maxdepth 1 ! \( -name ".git" -a -name ".*" -o -path "*\.config" -o -name "setup.sh" \) -exec ln -sv "$ln_Owrite" "$ADIR/{}" "$HOME/" \;
 
 # Convert absolute links to relative links the right way
-symlinks -dc ~/
+symlinks -dc ~/ &>/dev/null
 
+print_half_width_line "Update git submodules:"
+git submodule
 git submodule init
 git submodule update --remote
+
+print_half_width_line "END"
