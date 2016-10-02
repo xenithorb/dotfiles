@@ -13,6 +13,7 @@ alias ls='ls --color=auto'
 alias mock='mock --dnf'
 alias mkgrub='grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 alias userinstalled='readarray -t nevra < <(sudo dnf history userinstalled); rpm -q --qf="%{name}\n" "${nevra[@]}"'
+alias vagrant-killall="vagrant global-status | sed '/------/,/^ \$/!d;/^ \$/d;2d' | awk '{print \$1}' | xargs vagrant destroy -f"
 eval alias tmux="'tmux -f ${__TMUXRC}'" # __TMUXRC is in .common
 
 # Please god help me remember dnf/yum
