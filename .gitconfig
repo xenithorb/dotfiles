@@ -10,11 +10,11 @@
 	fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
 	historybrowser = git-dag
-	editor = konsole --nofork -e 'vim' -fp
+	editor = "bash -c '_v(){ p=\"$(readlink -e \"$0\")\"; konsole -e vim -- -fp \"$p\"; }; _v $@'"
 [diff]
-	tool = vimdiff
+	tool = "bash -c '_v(){ p=\"$(readlink -e \"$0\")\"; konsole -e vimdiff -- -f \"$p\"; }; _v $@'"
 [merge]
-	tool = vimdiff
+	tool = "bash -c '_v(){ p=\"$(readlink -e \"$0\")\"; konsole -e vimdiff -- -f \"$p\"; }; _v $@'"
 [difftool]
 	prompt = true
 [apply]
@@ -33,3 +33,4 @@
 [cola]
 	tabwidth = 2
 	fontdiff = Monospace,9,-1,5,50,0,0,0,0,0
+	linebreak = false
