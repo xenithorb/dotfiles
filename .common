@@ -35,7 +35,6 @@ if is_powerline_session; then
 	powerline_init
 else
 	__TMUXRC=".tmux-nopl.conf"
-	#__VIMRC=".vimrc-nopl"
 	__VIMRC=".vimrc"
 fi
 
