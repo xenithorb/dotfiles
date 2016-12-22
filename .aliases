@@ -118,3 +118,12 @@ if hash dnf &>/dev/null; then
 				'
 	}
 fi
+# end dnf if
+
+# Find listening ports of a service cgroup
+# https://www.redpill-linpro.com/sysadvent/2016/12/22/systemd-at-3am.html
+
+lsof_listen() {
+	local pids=$( ps -e -o pid,cgroup | awk '$2 ~ /'"$1"'/ { print "-p", $1 }' )
+	sudo lsof -n -i -a -P ${pids:?ERROR: No PIDs found.}
+}
