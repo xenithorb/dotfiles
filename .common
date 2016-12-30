@@ -29,6 +29,11 @@ is_trezor_agent_session() {
 	fi
 	return 0
 }
+
+is_libreoffice_session() {
+	hash libreoffice >/dev/null 2>&1
+}
+
 is_sshrc_session() {
 	[[ "$SSHHOME" ]]
 }
@@ -70,3 +75,8 @@ if [[ -d "$FIREFOX_DEV_PATH" ]]; then
 	export PATH="${PATH}:/opt/firefox-dev"
 fi
 
+if is_libreoffice_session; then
+	export SAL_USE_VCLPLUGIN=gtk
+	#export SAL_USE_VCLPLUGIN=kde
+	export VCL_ICONS_FOR_DARK_THEME=1
+fi
