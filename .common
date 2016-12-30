@@ -14,6 +14,21 @@ is_powerline_session() {
 	hash powerline-daemon >/dev/null 2>&1
 }
 
+is_trezor_agent_session() {
+	local path_check=$( command -v trezor-agent )
+	local trezor_virtual="$HOME/virtualenvs/ledger/bin/trezor-agent"
+	if [[ $path_check ]]; then
+		TREZOR_AGENT_BIN="$path_check"
+	elif [[ -x $trezor_virtual ]]; then
+		TREZOR_AGENT_BIN="$trezor_virtual"
+	fi
+	alias trezor-agent="$TREZOR_AGENT_BIN"
+	if [[ ${SSH_AUTH_SOCK,,} =~ trezor ]] \
+	|| ! lsusb -d 2c97: >/dev/null 2>&1; then
+		return 1
+	fi
+	return 0
+}
 is_sshrc_session() {
 	[[ "$SSHHOME" ]]
 }
@@ -45,6 +60,10 @@ if is_sshrc_session; then
 else
 	export VIMINIT="let \$MYVIMRC='${HOME}/${__VIMRC}' | source \$MYVIMRC"
 	__TMUXRC="${HOME}/${__TMUXRC}"
+fi
+
+if is_trezor_agent_session; then
+	"$TREZOR_AGENT_BIN" -se ed25519 -- xenith@overtmind.com
 fi
 
 if [[ -d "$FIREFOX_DEV_PATH" ]]; then
