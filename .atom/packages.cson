@@ -1,6 +1,7 @@
 packages: [
   "ansible-galaxy"
   "ansible-vault"
+  "arc-ui"
   "atom-beautify"
   "atom-jinja2"
   "autocomplete-ansible"
@@ -21,7 +22,9 @@ packages: [
   "linter-jsonlint"
   "linter-markdown"
   "linter-pep8"
+  "linter-ruby"
   "linter-shellcheck"
+  "linter-spell"
   "linter-write-good"
   "markdown-writer"
   "maximize-panes"
