@@ -45,3 +45,5 @@
 	tabwidth = 2
 	fontdiff = Monospace,9,-1,5,50,0,0,0,0,0
 	linebreak = false
+[commit]
+	verbose = 1
