@@ -32,7 +32,7 @@ fi
 if hash curl &>/dev/null; then
 	haste ()
 	{
-	    local S="http"
+	    local S="https"
 	    local H="hastebin.com"
 	    local P=""
 	    local SHP="${S}://${H}${P}/"
