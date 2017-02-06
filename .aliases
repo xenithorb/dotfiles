@@ -127,3 +127,12 @@ lsof_listen() {
 	local pids=$( ps -e -o pid,cgroup | awk '$2 ~ /'"$1"'/ { print "-p", $1 }' )
 	sudo lsof -n -i -a -P ${pids:?ERROR: No PIDs found.}
 }
+
+# Useful to output the cert information of a domain
+
+openssl_sclient() {
+	openssl s_client -connect "$1" 2>&1 </dev/null \
+		| sed '/^-----/,/^-----/!d' \
+		| openssl x509 -noout -text \
+		| sed -r '/:[[:alnum:]]{2}:$/d'
+}
