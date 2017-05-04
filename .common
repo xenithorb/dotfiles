@@ -80,3 +80,6 @@ if is_libreoffice_session; then
 	#export SAL_USE_VCLPLUGIN=kde
 	export VCL_ICONS_FOR_DARK_THEME=1
 fi
+
+# Leave this to source in credentials/tokens that won't get checked into git
+source ~/.exports
