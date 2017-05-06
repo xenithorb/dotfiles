@@ -38,6 +38,14 @@ is_sshrc_session() {
 	[[ "$SSHHOME" ]]
 }
 
+is_ssh_session() {
+	[[ "$SSH_CONNECTION" && "$SSH_CLIENT" ]]
+}
+
+is_x11_forward_session() {
+	[[ "$DISPLAY" =~ ^localhost ]]
+}
+
 set_editor() {
 	EDITOR="$(type -P "$1")"
 	if [[ "$EDITOR" ]]; then
@@ -58,13 +66,19 @@ else
 	__VIMRC=".vimrc"
 fi
 
-if is_sshrc_session; then
-	export $SSHRC_D
-	export VIMINIT="let \$MYVIMRC='${SSHRC_D}/${__VIMRC}' | source \$MYVIMRC"
-	__TMUXRC="${SSHRC_D}/${__TMUXRC}"
-else
-	export VIMINIT="let \$MYVIMRC='${HOME}/${__VIMRC}' | source \$MYVIMRC"
-	__TMUXRC="${HOME}/${__TMUXRC}"
+if is_ssh_session; then
+	if is_sshrc_session; then
+		eval export $SSHRC_D
+		export VIMINIT="let \$MYVIMRC='${SSHRC_D}/${__VIMRC}' | source \$MYVIMRC"
+		__TMUXRC="${SSHRC_D}/${__TMUXRC}"
+	else
+		export VIMINIT="let \$MYVIMRC='${HOME}/${__VIMRC}' | source \$MYVIMRC"
+		__TMUXRC="${HOME}/${__TMUXRC}"
+	fi
+
+	if is_x11_forward_session; then
+		export XDG_CURRENT_DESKTOP="kde"
+	fi
 fi
 
 if is_trezor_agent_session; then
