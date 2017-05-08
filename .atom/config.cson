@@ -1,14 +1,34 @@
 "*":
   "ansible-galaxy":
     ansiblePath: "/usr/bin/"
+  "ansible-vault":
+    path: "/usr/bin/ansible-vault"
   "atom-beautify":
     general:
       analytics: false
+  "atom-material-ui":
+    colors:
+      abaseColor: "#7e7e7e"
+      predefinedColor: "Grey"
+    tabs:
+      compactTabs: true
+      tintedTabBar: true
+    treeView:
+      compactList: true
+    ui:
+      panelShadows: true
+  "atom-package-deps":
+    ignored: []
+  "autocomplete-plus":
+    confirmCompletion: "tab always, enter when suggestion explicitly selected"
+    enableExtendedUnicodeSupport: true
   core:
     autoHideMenuBar: true
     disabledPackages: [
       "linter-spell"
-      "linter-js-yaml"
+      "autocomplete-ruby"
+      "tool-bar-atom"
+      "tool-bar"
     ]
     ignoredNames: [
       ".git"
@@ -19,28 +39,38 @@
       "Thumbs.db"
       "*.swp"
     ]
-    openEmptyEditorOnStart: false
     packagesWithKeymapsDisabled: [
       "language-ansible"
     ]
     projectHome: "/home/xenith/git"
+    telemetryConsent: "no"
+    themes: [
+      "arc-ui"
+      "one-dark-syntax"
+    ]
   editor:
-    fontSize: 12
+    fontFamily: "Liberation Mono"
+    fontSize: 13
     invisibles: {}
     lineHeight: 1.3
     showIndentGuide: true
+    showInvisibles: true
     softWrap: true
+    tabLength: 4
   "exception-reporting":
     userId: "73c0624b-de12-72c6-b22c-b67b3bde9f98"
   "git-diff": {}
   "git-log": {}
   "git-plus":
-    pullBeforePush: "pull --rebase"
-    splitPane: "Down"
-    verboseCommits: true
+    general: {}
   linter:
-    lintOnFlyInterval: 3000
+    lintOnChangeInterval: 3000
   "linter-flake8": {}
+  "linter-pycodestyle": {}
+  "linter-shellcheck":
+    enableNotice: true
+    shellcheckExecutablePath: "/usr/bin/shellcheck"
+  "linter-ui-default": {}
   "markdown-writer":
     siteEngine: "jekyll"
     tableExtraPipes: true
@@ -64,10 +94,6 @@
     dataSaveFolder: "/home/xenith/.atom/packages/save-session/projects"
   tabs:
     enableVcsColoring: true
-  "terminal-fusion":
-    style:
-      defaultPanelHeight: "200px"
-      theme: "pro"
   "tool-bar":
     iconSize: "16px"
   "tree-view":
