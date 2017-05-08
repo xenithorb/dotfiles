@@ -1,6 +1,7 @@
 #!/bin/bash
 SOURCE_FILES=(
-	"/etc/bashrc"	
+	"/etc/bashrc"
 	".common"
 	".aliases" # .aliases depends on .common (being first)
+	".exports" # for overrides and/or creds
 )

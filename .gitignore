@@ -2,3 +2,4 @@
 *.swp
 .atom/
 !.atom/*.cson
+.exports
