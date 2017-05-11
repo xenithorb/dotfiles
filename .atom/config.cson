@@ -62,7 +62,12 @@
   "git-diff": {}
   "git-log": {}
   "git-plus":
+    commits:
+      verboseCommits: true
+    experimental:
+      customCommands: true
     general: {}
+    tags: {}
   linter:
     lintOnChangeInterval: 3000
   "linter-flake8": {}
@@ -90,6 +95,13 @@
   "package-sync":
     createOnChange: true
     forceOverwrite: true
+  "platformio-ide-terminal":
+    core:
+      mapTerminalsTo: "Folder"
+    style:
+      fontFamily: "PowerlineSymbols, Liberation Mono"
+      fontSize: "11"
+      theme: "one-dark"
   "save-session":
     dataSaveFolder: "/home/xenith/.atom/packages/save-session/projects"
   tabs:
