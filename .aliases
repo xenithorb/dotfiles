@@ -48,6 +48,10 @@ elif hash apt-get &>/dev/null; then
 	echo "Debian, really? Idiot!"
 fi
 
+if command -v pygmentize &>/dev/null; then
+	alias pcat='pygmentize -g'
+fi
+
 # Ok got me, not aliases but they act like ones
 # Neat little script to upload files to hastebin.com
 if hash curl &>/dev/null; then
