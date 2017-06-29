@@ -8,6 +8,13 @@ alias yaml2json='_yaml2json() { python -c '\''import sys, yaml, json; json.dump(
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
+# For btrfs
+alias cp='cp --reflink=auto'
+
+alias snapper-list='snapper list-configs \
+	| awk '\''NR > 2 { print $1 }'\'' \
+	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
+
 #alias docker='sudo docker'
 
 # Remove all docker containers running and exited
