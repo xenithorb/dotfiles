@@ -33,11 +33,15 @@ alias docker-nuke='docker-rmall; docker-rmnet; docker-rmvol'
 alias docker-clean='docker-rma -f status=exited; docker-rmia -f dangling=true; docker-rmnet; docker-rmvol -f dangling=true'
 
 alias mockbuild='\
-	rpmlint *.spec &&
-	spectool -g *.spec &&
-	__mockf() {
-		local SRPM=$( mock "$@" -v --resultdir . --buildsrpm --spec *.spec --sources . 2>&1 | awk "/ Wrote: /{ print gensub(\".*/([^/]+)$\",\"\\\1\",\"g\",\$3) }" )
-		mock "$@" --resultdir . "${SRPM:?ERROR: Missing SRPM}"; }; __mockf'
+	__mock() {
+		local SPEC="$1" \
+		&& shift \
+		&& rpmlint "$SPEC" \
+		&& spectool -g "$SPEC" \
+		&& local SRPM=$( mock "$@" -v --resultdir . --buildsrpm --spec "$SPEC" --sources . 2>&1 | awk "/ Wrote: /{ print gensub(\".*/([^/]+)$\",\"\\\1\",\"g\",\$3) }" ) \
+		&& mock "$@" --resultdir . "${SRPM:?ERROR: Missing SRPM}"; \
+	}; __mock'
+
 alias mockbuild_noclean='mockbuild --no-cleanup-after --no-cleanup'
 alias mkgrub='grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 alias userinstalled='readarray -t nevra < <(sudo dnf history userinstalled); rpm -q --qf="%{name}\n" "${nevra[@]}"'
