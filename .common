@@ -42,6 +42,10 @@ is_ssh_session() {
 	[[ "$SSH_CONNECTION" && "$SSH_CLIENT" ]]
 }
 
+is_kubectl_session() {
+	hash kubectl >/dev/null 2>&1
+}
+
 is_x11_forward_session() {
 	[[ "$DISPLAY" =~ ^localhost ]]
 }
@@ -93,4 +97,9 @@ if is_libreoffice_session; then
 	export SAL_USE_VCLPLUGIN=gtk
 	#export SAL_USE_VCLPLUGIN=kde
 	export VCL_ICONS_FOR_DARK_THEME=1
+fi
+
+if is_kubectl_session; then
+	[[ ! -f ~/.kubectl_completion ]] && kubectl completion bash > .kubectl_completion
+	. ~/.kubectl_completion
 fi
