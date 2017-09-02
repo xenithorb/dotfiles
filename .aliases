@@ -10,7 +10,7 @@ alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
 # For btrfs
 alias cp='cp --reflink=auto'
-
+alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
 alias snapper-list='snapper list-configs \
 	| awk '\''NR > 2 { print $1 }'\'' \
 	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
