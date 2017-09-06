@@ -4,6 +4,8 @@
 # Local AND Remote aliases
 #
 alias fuck='cmd="$(fc -ln -1)" && echo "$cmd" && sudo $cmd'
+# This trick enables aliases for sudo (the space after sudo)
+alias sudo='sudo '
 alias yaml2json='_yaml2json() { python -c '\''import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'\'' < "$1"; }; _yaml2json'
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
