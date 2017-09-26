@@ -16,7 +16,7 @@ alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
 alias snapper-list='snapper list-configs \
 	| awk '\''NR > 2 { print $1 }'\'' \
 	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
-
+alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
 #alias docker='sudo docker'
 
 # Remove all docker containers running and exited
