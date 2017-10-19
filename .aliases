@@ -45,7 +45,7 @@ alias mockbuild='\
 	}; __mock'
 
 alias mockbuild_noclean='mockbuild --no-cleanup-after --no-cleanup'
-alias mkgrub='grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
+alias mkgrub='grub2-mkconfig | tee /etc/grub*.cfg >/dev/null'
 alias userinstalled='readarray -t nevra < <(sudo dnf history userinstalled); rpm -q --qf="%{name}\n" "${nevra[@]}"'
 alias vagrant-killall="vagrant global-status | sed '/------/,/^ \$/!d;/^ \$/d;2d' | awk '{print \$1}' | xargs vagrant destroy -f"
 eval alias tmux="'tmux -f ${__TMUXRC}'" # __TMUXRC is in .common
