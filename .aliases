@@ -12,6 +12,7 @@ alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
 # For btrfs
 alias cp='cp --reflink=auto'
+alias df='__df_findmnt() { [[ "$1" == "-h" || -z "$1" ]] && findmnt -D || df "$@"; }; __df_findmnt'
 alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
 alias snapper-list='snapper list-configs \
 	| awk '\''NR > 2 { print $1 }'\'' \
