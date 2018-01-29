@@ -19,7 +19,7 @@ alias snapper-list='snapper list-configs \
 	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
 alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
 #alias docker='sudo docker'
-
+alias dmesg='dmesg -xTk'
 # Remove all docker containers running and exited
 alias docker-rma='__drma() { docker ps -aq "$@" | xargs -r docker rm -f; }; __drma'
 # Remove all docker images
