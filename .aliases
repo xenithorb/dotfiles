@@ -11,6 +11,7 @@ alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
 # For btrfs
 alias cp='cp --reflink=auto'
+alias btrfs-grepdel='__grepdel() { sudo btrfs subvol list "$1" | awk -v p="$2" '\''$0 ~ p{ print "/"$9 }'\'' | xargs -t sudo btrfs sub del; }; __grepdel'
 alias df='__df_findmnt() { [[ "$1" == "-h" || -z "$1" ]] && findmnt -D || df "$@"; }; __df_findmnt'
 alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
 alias snapper-list='snapper list-configs \
