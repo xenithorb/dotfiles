@@ -7,7 +7,8 @@ powerline_init() {
 	powerline-daemon -q
 	export POWERLINE_BASH_CONTINUATION=1
 	export POWERLINE_BASH_SELECT=1
-	. /usr/share/powerline/bash/powerline.sh
+	# shellcheck disable=SC1091
+	source /usr/share/powerline/bash/powerline.sh
 }
 
 is_powerline_session() {
@@ -15,13 +16,15 @@ is_powerline_session() {
 }
 
 is_trezor_agent_session() {
-	local path_check=$( command -v trezor-agent )
-	local trezor_virtual="$HOME/virtualenvs/ledger/bin/trezor-agent"
+	local trezor_virtual path_check
+	path_check=$( command -v trezor-agent )
+	trezor_virtual="$HOME/virtualenvs/ledger/bin/trezor-agent"
 	if [[ $path_check ]]; then
 		TREZOR_AGENT_BIN="$path_check"
 	elif [[ -x $trezor_virtual ]]; then
 		TREZOR_AGENT_BIN="$trezor_virtual"
 	fi
+	# shellcheck disable=SC2139
 	alias trezor-agent="$TREZOR_AGENT_BIN"
 	if [[ ${SSH_AUTH_SOCK,,} =~ trezor ]] \
 	|| ! lsusb -d 2c97: >/dev/null 2>&1; then
@@ -72,6 +75,7 @@ fi
 
 if is_ssh_session; then
 	if is_sshrc_session; then
+		# shellcheck disable=SC2086
 		eval export $SSHRC_D
 		export VIMINIT="let \$MYVIMRC='${SSHRC_D}/${__VIMRC}' | source \$MYVIMRC"
 		__TMUXRC="${SSHRC_D}/${__TMUXRC}"
@@ -100,6 +104,7 @@ if is_libreoffice_session; then
 fi
 
 if is_kubectl_session; then
-	[[ ! -f ~/.kubectl_completion ]] && kubectl completion bash > .kubectl_completion
-	. ~/.kubectl_completion
+	[[ ! -f "$HOME/.kubectl_completion" ]] && kubectl completion bash > .kubectl_completion
+	# shellcheck disable=SC1090
+	source "$HOME/.kubectl_completion"
 fi

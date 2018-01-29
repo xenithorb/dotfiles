@@ -10,6 +10,7 @@ for i in "${!SOURCE_FILES[@]}"; do
 		f="${HOME}/${f}"
 	fi
 	if [[ -e "$f" ]]; then
+		# shellcheck source=/dev/null
 		source "$f"
 	fi
 done
