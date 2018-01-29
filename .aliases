@@ -18,8 +18,9 @@ alias snapper-list='snapper list-configs \
 	| awk '\''NR > 2 { print $1 }'\'' \
 	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
 alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
-#alias docker='sudo docker'
 alias dmesg='dmesg -xTk'
+
+# BEGIN DOCKER - https://gist.github.com/xenithorb/c0fdae80878a010759b2a3d1d76cf608
 # Remove all docker containers running and exited
 alias docker-rma='__drma() { docker ps -aq "$@" | xargs -r docker rm -f; }; __drma'
 # Remove all docker images
@@ -34,6 +35,8 @@ alias docker-rmall='docker-rma && docker-rmia'
 alias docker-nuke='docker-rmall; docker-rmnet; docker-rmvol'
 # Remove only exited containers, unused images, unused networks, and unused volumes
 alias docker-clean='docker-rma -f status=exited; docker-rmia -f dangling=true; docker-rmnet; docker-rmvol -f dangling=true'
+# END DOCKER
+
 
 alias mockbuild='\
 	__mock() {
@@ -76,6 +79,55 @@ if hash curl &>/dev/null; then
 		  | awk -F '"' 'b{ b="."b }; {print a$4b}' a="${SHP}" b="${L}"
 	}
 fi
+
+# BEGIN DOCKER-DIND - https://gist.github.com/xenithorb/5a76b018967ef33d6123c06781791877
+if command -v docker &>/dev/null; then
+	dind           () { docker-dind "$@"; }
+	dind-deactivate() { unset DOCKER_HOST; }
+	dind-activate  () { unset DOCKER_HOST; dind-info; export DOCKER_HOST="$DOCKER_DIND_HOST" DOCKER_DIND_PORTS; }
+	dind-info      () {
+		local info host_info dind_info tmpfile dind_good
+		info="{{.Name}}, {{.ServerVersion}}, {{.OperatingSystem}}"
+		host_info=$(DOCKER_HOST='' docker info -f "$info")
+		tmpfile="/tmp/docker-dind-out.$$"
+		docker-dind info -f "$info" > "$tmpfile"; dind_good="$?"
+		dind_info=$(<"$tmpfile"); rm -f "$tmpfile"
+		if [[ "$host_info" == "$dind_info" ]] || (( dind_good != 0 )); then
+			echo "DIND NOT ACTIVE: ${dind_info}"
+		else
+			echo -ne "DIND ACTIVATED:\n\tHOST: ${host_info}\n\tDIND: ${dind_info}" \
+					 "\n\n\tForwarded Ports: ${DOCKER_DIND_PORTS}\n"
+		fi
+	}
+	docker-dind    () {
+		local port host id range_s range_e count name
+		name=docker_dind; host=localhost; port=4444; range_s=10001; range_e=10101
+		if (( $(docker ps -q -f name="${name}" | wc -l) <= 0 )); then
+			docker run --privileged \
+				-e PORT="$port" -p "${port}":2375 \
+				--net host \
+				-v "${name}:/var/lib/docker" \
+				--name "${name}" \
+				-d docker:dind \
+				dockerd --host unix:///var/run/docker.sock \
+						--host tcp://0.0.0.0:${port} \
+				>/dev/null
+		fi &&
+		until (( $(curl -sio /dev/null -w "%{http_code}" http://${host}:${port}/_ping) == 200 )); do
+			sleep .1; (( count > 50 )) \
+				&& { echo "Cannot connect to DinD daemon"; return 1; } \
+				|| ((++count))
+		done
+		if [[ $(DOCKER_HOST='' docker inspect ${name} --format="{{ .HostConfig.NetworkMode }}") == "host" ]]; then
+			DOCKER_DIND_PORTS="NONE: In host network mode"
+		else
+			DOCKER_DIND_PORTS="${range_s}${range_e:+-${range_e}}"
+		fi
+		export DOCKER_DIND_HOST="${host}:${port}" DOCKER_DIND_PORTS
+		DOCKER_HOST="$DOCKER_DIND_HOST" docker "$@"
+	}
+fi
+# END DOCKER-DIND
 
 replace_in_file_recursive() {
 	trap 'unset files' RETURN
