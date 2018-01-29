@@ -6,7 +6,6 @@
 alias fuck='cmd="$(fc -ln -1)" && echo "$cmd" && sudo $cmd'
 # This trick enables aliases for sudo (the space after sudo)
 alias sudo='sudo '
-alias yaml2json='_yaml2json() { python -c '\''import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'\'' < "$1"; }; _yaml2json'
 alias ll='ls -l --color=auto'
 alias la='ls -la --color=auto'
 alias ls='ls --color=auto'
@@ -172,3 +171,27 @@ openssl_sclient() {
 		| openssl x509 -noout -text \
 		| sed -r '/:[[:alnum:]]{2}:$/d'
 }
+
+# BEGIN JSON2YAML - https://gist.github.com/xenithorb/e90713534624c93a834a92c2a0c6ee28
+yaml2json() {
+	python < "${1:-/dev/stdin}" <(
+		cat <<-EOF
+			import sys, yaml, json
+			json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)
+		EOF
+	)
+}
+
+json2yaml() {
+	python < "${1:-/dev/stdin}" <(
+		cat <<-EOF
+			import sys, yaml, json
+			yaml.safe_dump( json.load(sys.stdin),
+							sys.stdout,
+							explicit_start=True,
+							default_flow_style=False
+							)
+		EOF
+	)
+}
+# END JSON2YAML
