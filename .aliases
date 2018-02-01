@@ -66,6 +66,7 @@ fi
 
 if command -v pygmentize &>/dev/null; then
 	alias pcat='pygmentize -g'
+	pless() { pygmentize -g < "${1:-/dev/stdin}" | less -R; };
 fi
 
 # Ok got me, not aliases but they act like ones
