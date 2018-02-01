@@ -14,9 +14,6 @@ alias cp='cp --reflink=auto'
 alias btrfs-grepdel='__grepdel() { sudo btrfs subvol list "$1" | awk -v p="$2" '\''$0 ~ p{ print "/"$9 }'\'' | xargs -t sudo btrfs sub del; }; __grepdel'
 alias df='__df_findmnt() { [[ "$1" == "-h" || -z "$1" ]] && findmnt -D || df "$@"; }; __df_findmnt'
 alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
-alias snapper-list='snapper list-configs \
-	| awk '\''NR > 2 { print $1 }'\'' \
-	| while read -r conf; do echo -e "\n#### $conf ####"; sudo snapper -c $conf list; done'
 alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
 alias dmesg='dmesg -xTk'
 
