@@ -20,6 +20,8 @@ alias snapper-list='snapper list-configs \
 alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
 alias dmesg='dmesg -xTk'
 
+alias pkcon-offline='pkcon refresh force && pkcon update --only-download && pkcon offline-trigger && pkcon offline-get-prepared'
+
 # BEGIN DOCKER - https://gist.github.com/xenithorb/c0fdae80878a010759b2a3d1d76cf608
 # Remove all docker containers running and exited
 alias docker-rma='__drma() { docker ps -aq "$@" | xargs -r docker rm -f; }; __drma'
