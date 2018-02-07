@@ -15,18 +15,22 @@ is_powerline_session() {
 	hash powerline-daemon >/dev/null 2>&1
 }
 
-is_trezor_agent_session() {
-	local trezor_virtual path_check
-	path_check=$( command -v trezor-agent )
-	trezor_virtual="$HOME/virtualenvs/ledger/bin/trezor-agent"
+is_ledger_agent_session() {
+	local a ledger_virtual path_check
+	path_check=$(
+		a=$(command -v ledger-agent) \
+		&& [[ "$a" =~ alias ]] \
+		|| printf '%s' "$a"
+	)
+	ledger_virtual="$HOME/virtualenvs/ledger/bin/ledger-agent"
 	if [[ $path_check ]]; then
-		TREZOR_AGENT_BIN="$path_check"
-	elif [[ -x $trezor_virtual ]]; then
-		TREZOR_AGENT_BIN="$trezor_virtual"
+		LEDGER_AGENT_BIN="$path_check"
+	elif [[ -x $ledger_virtual ]]; then
+		LEDGER_AGENT_BIN="$ledger_virtual"
 	fi
 	# shellcheck disable=SC2139
-	alias trezor-agent="$TREZOR_AGENT_BIN"
-	if [[ ${SSH_AUTH_SOCK,,} =~ trezor ]] \
+	alias ledger-agent="$LEDGER_AGENT_BIN"
+	if [[ ${SSH_AUTH_SOCK,,} =~ (ledger|trezor) ]] \
 	|| ! lsusb -d 2c97: >/dev/null 2>&1; then
 		return 1
 	fi
@@ -89,8 +93,8 @@ if is_ssh_session; then
 	fi
 fi
 
-if is_trezor_agent_session; then
-	"$TREZOR_AGENT_BIN" -se ed25519 -- xenith@overtmind.com
+if is_ledger_agent_session; then
+	"$LEDGER_AGENT_BIN" -se ed25519 -- xenith@overtmind.com
 fi
 
 if [[ -d "$FIREFOX_DEV_PATH" ]]; then
