@@ -10,7 +10,7 @@
 	fontui = -family \"DejaVu Sans\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
 	fontdiff = -family \"DejaVu Sans Mono\" -size 9 -weight normal -slant roman -underline 0 -overstrike 0
 	historybrowser = git-dag
-	editor = "bash -c '_v(){ p=\"$(readlink -e \"$0\")\"; konsole -e vim -- -fp \"$p\"; }; _v $@'"
+	editor = atom
 [diff]
 	tool = "bash -c '_v(){ p=\"$(readlink -e \"$0\")\"; konsole -e vimdiff -- -f \"$p\"; }; _v $@'"
 [merge]
@@ -22,8 +22,11 @@
 [alias]
 	co = checkout
 	ci = commit
+	ca = commit --amend
 	st = status
 	br = branch
+	bva = branch -vva
+	cane = commit --amend --no-edit --allow-empty-message
 	gg = log --oneline --decorate --graph
 	gga = log --oneline --decorate --graph --all
 	ls = !git ls-tree $(git rev-parse HEAD) -trl --abbrev=7
