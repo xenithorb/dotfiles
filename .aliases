@@ -17,7 +17,21 @@ alias btrbk='btrbk -c /etc/btrbk/$(hostname -s).conf'
 alias dracut-latest='dracut -f --kver="$(ls -1 /usr/lib/modules | sort -V | tail -n1)"'
 alias dmesg='dmesg -xTk'
 
+iptables-pretty() {
+	sudo iptables -nvL "$@" \
+		| awk '/^Chain/{ gsub(" +","$"); printf "#%s\n", $0; next}; gsub("[ ]+"," ")' \
+		| column -tE1 \
+		| sed '/^ *$/d;s|\$| |g; s|#|\n|g; /^Chain/!s|^|   |'
+}
+
 alias pkcon-offline='pkcon refresh force && pkcon update --only-download && pkcon offline-trigger && pkcon offline-get-prepared'
+
+multiborg() {
+	for i in /mnt/external1/backups/*; do
+		sudo BORG_PASSCOMMAND='cat /root/.borg_password' borg "$@" "$i"
+		echo
+	done
+}
 
 snapper-space() {
 	snapper_mount() {
@@ -28,8 +42,6 @@ snapper-space() {
 	sudo lvs | grep "$1" | sort -Vk1
 	snapper_mount umount "$1"
 }
-
-
 
 # BEGIN DOCKER - https://gist.github.com/xenithorb/c0fdae80878a010759b2a3d1d76cf608
 # Remove all docker containers running and exited
@@ -59,6 +71,7 @@ alias mockbuild='\
 		&& mock "$@" --resultdir . "${SRPM:?ERROR: Missing SRPM}"; \
 	}; __mock'
 
+		alias spec-show='find . -name *.spec | xargs awk '\''BEGIN{ format="%s %s %s %s\n"; printf format,"NAME","VERSION","RELEASE","SPECFILE" }; /Name: /{ n=$2; next }; /Version: /{ v=$2; next }; /Release: /{ r=$2; sub("%.*","",r); printf format,n,v,r,FILENAME }'\'' | column -t | ( read -r; echo "$REPLY"; sort)'
 alias mockbuild_noclean='_mock_nc() { mockbuild "$@" --no-cleanup-after --no-cleanup; }; _mock_nc'
 alias mkgrub='sudo sh -c "grub2-mkconfig | tee /etc/grub*.cfg >/dev/null"'
 alias userinstalled='readarray -t nevra < <(sudo dnf history userinstalled); rpm -q --qf="%{name}\n" "${nevra[@]}"'
