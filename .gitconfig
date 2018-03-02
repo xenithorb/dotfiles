@@ -27,6 +27,7 @@
 	br = branch
 	bva = branch -vva
 	cane = commit --amend --no-edit --allow-empty-message
+	wdiff = diff --color-words
 	gg = log --oneline --decorate --graph
 	gga = log --oneline --decorate --graph --all
 	ls = !git ls-tree $(git rev-parse HEAD) -trl --abbrev=7
