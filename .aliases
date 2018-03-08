@@ -24,7 +24,7 @@ iptables-pretty() {
 		| sed '/^ *$/d;s|\$| |g; s|#|\n|g; /^Chain/!s|^|   |'
 }
 
-alias pkcon-offline='pkcon refresh force && pkcon update --only-download && pkcon offline-trigger && pkcon offline-get-prepared'
+alias pkcon-offline='pkcon refresh force -c -1 -y && pkcon update --only-download -y ; pkcon offline-trigger -y ; pkcon offline-get-prepared -y'
 
 multiborg() {
 	for i in /mnt/external1/backups/*; do
