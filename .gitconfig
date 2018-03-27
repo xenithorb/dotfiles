@@ -35,6 +35,8 @@
 	nb = "!__nb(){ git branch -D \"$1\" && git push -u origin :\"$1\"; }; __nb"
 	;; Resets the git committer date to the git author date - useful when github commit dates are out of whack
 	reset-date = filter-branch --env-filter 'export GIT_COMMITTER_DATE="$GIT_AUTHOR_DATE"'
+    ;; Set email recursively
+	set-email = "!__set_email() { __git() { git --git-dir=\"$1\" config $2 \"$3\"; }; find -type d -name \".git\" -print0 | while read -r -d '' repo; do : repo=\"${repo%/.git}\"; __git \"$repo\" \"user.name\" \"$1\"; __git \"$repo\" \"user.email\" \"$2\"; done; }; __set_email"
 	;; Quickly re-write commits with a new email
 	re-email = "!set -x;_reEmail(){ git filter-branch --env-filter 'if [[ '\\$GIT_AUTHOR_EMAIL' == '"$1"' ]]; then export GIT_AUTHOR_EMAIL='"$2"' GIT_COMMITTER_EMAIL='"$2"' GIT_COMMITTER_DATE='\\$GIT_AUTHOR_DATE'; fi' HEAD; }; _reEmail"
 	;; Recursively show all status and branch -v for all git repos
