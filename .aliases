@@ -273,3 +273,29 @@ json2yaml() {
 	)
 }
 # END JSON2YAML
+
+ansible-ssh_completion() {
+	local host_list=($( ansible-inventory --list | python3 -c 'import sys, json; a=json.load(sys.stdin); print("\n".join(a["_meta"]["hostvars"].keys()))' ))
+	if (( ${#COMP_WORDS[@]} < 3 )); then
+		local suggestions=($( compgen -W "${host_list[*]}" -- "${COMP_WORDS[1]}" ))
+	fi
+	if (( ${#suggestions[@]} > 1 )); then
+		for (( i=0; i<${#suggestions[@]}; i++ )); do
+			suggestions[i]=$( printf '%*s' "-$COLUMNS" "${suggestions[i]}" )
+		done
+	fi
+	COMPREPLY=( "${suggestions[@]}" )
+}
+ansible-ssh() {
+	local host=$1
+	shift
+	eval $(ansible-inventory --host "$host" \
+		| python -c "$( cat <<-EOF
+				import sys, subprocess, json
+				a=json.load(sys.stdin)
+				print( " ".join(["ssh", "-tt", "-P" + str(a["ansible_port"]), a["ansible_user"] + "@" + a["ansible_host"]]) )
+			EOF
+			)"
+	) "$@"
+}
+complete -F ansible-ssh_completion ansible-ssh
