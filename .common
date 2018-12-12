@@ -57,6 +57,10 @@ is_x11_forward_session() {
 	[[ "$DISPLAY" =~ ^localhost ]]
 }
 
+is_terraform_session() {
+	hash terraform >/dev/null 2>&1
+}
+
 set_editor() {
 	EDITOR="$(type -P "$1")"
 	if [[ "$EDITOR" ]]; then
@@ -111,4 +115,8 @@ if is_kubectl_session; then
 	[[ ! -f "$HOME/.kubectl_completion" ]] && kubectl completion bash > .kubectl_completion
 	# shellcheck disable=SC1090
 	source "$HOME/.kubectl_completion"
+fi
+
+if is_terraform_session; then
+	complete -C terraform terraform
 fi
