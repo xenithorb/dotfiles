@@ -6,6 +6,7 @@ execute pathogen#infect()
 """ BEGIN: Custom general
 set t_Co=256
 set background=dark
+set autoread
 colorscheme hybrid
 set cc=81
 "" Get transparent BG back
