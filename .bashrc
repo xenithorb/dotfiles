@@ -4,12 +4,12 @@
 # Normally this would belong in .common, but this seriously benefits from being
 # the first thing run, because visually, if it's run from .common there is an
 # annoying delay in the konsole blurring
-if [[ $(ps --no-header -p $PPID -o comm) =~ yakuake|konsole ]]; then
-	for wid in $(xdotool search --pid $PPID); do
-		xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c \
-			-set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id "$wid"
-	done
-fi
+#if [[ $(ps --no-header -p $PPID -o comm) =~ (yakuake|konsole) ]]; then
+#	for wid in $(xdotool search --pid $PPID); do
+#		xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c \
+#			-set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id "$wid"
+#	done
+#fi
 
 # shellcheck disable=SC1090
 source "$HOME/.source_files"
